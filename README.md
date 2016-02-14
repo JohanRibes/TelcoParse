@@ -6,7 +6,8 @@ A "universal" parser script to help telco technicians to read configuration file
 * Simple calls to libraries of functions to extract basic informations.
 
 
-```# ./TelcoParse.rb --help
+```bash
+# ./TelcoParse.rb --help
 
 Usage: TelcoParse file_to_parse [options]
     -t, --type [STRING]              A single string describing the configuration type (ex: "Cisco IOS")
