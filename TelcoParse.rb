@@ -26,7 +26,7 @@ options.type= nil
 
 
 opt_parser = OptionParser.new do |opts|
-	opts.banner = "Usage: parser file_to_parse [options]\n"
+	opts.banner = "Usage: TelcoParse file_to_parse [options]\n"
 	opts.on("-t", "--type [STRING]", "A single string describing the configuration type (ex: \"Cisco IOS\")") do |v|
 		options.type = v
 	 end
@@ -55,9 +55,9 @@ if file.nil?
 		# ..:: MOTD ::..
 		system 'clear'
 		puts "**************************************************************"
-		puts "Ceci est mon script de balayage de fichiers de configuration."
+		puts "Simple TelcoParser."
 		puts "**************************************************************"
-		puts "Je vais analyser #{file} de type \"#{options.type.downcase}\""
+		puts "I'm Going to parse #{file} as an  \"#{options.type.downcase}\" structure."
 	
 	
 	eqt={}	
