@@ -17,6 +17,7 @@ require 'ostruct'
 require_relative 'lib/ios.rb'
 require_relative 'lib/vrp.rb'
 require_relative 'lib/seos.rb'
+require_relative 'lib/timos.rb'
 require_relative 'lib/c7decrypt.rb'
 
 
@@ -130,7 +131,6 @@ if file.nil?
 	
 	
 	if options.type == "seos"
-	# Les banners sont dans le :rancid
 		eqt=Seos::Get.rancid(eqt)
 		#puts "Tableau config: #{eqt[:conf].size}"
 		#puts "Tableau rancid: #{eqt[:rancid].size}"
@@ -139,21 +139,33 @@ if file.nil?
 		#puts eqt[:"port ethernet 14/5"]
 		#puts "Tableau config: #{eqt[:conf].size}"
 		eqt=Seos::Get.context(eqt)
-		puts eqt.keys
+		#puts eqt.keys
 		puts "Tableau config: #{eqt[:conf].size}"
 		#puts eqt[:"context local"]
 		#puts "Context local: #{eqt[:"context local"].size}"
-		puts "Context L2TP: #{eqt[:"rancid"]}"
+		#puts "Context L2TP: #{eqt[:"rancid"]}"
+		eqt=Seos::Get.banners(eqt)
+		puts "Tableau config: #{eqt[:conf].size}"
 		
-		
+		puts eqt[:banner_exec]
+		puts eqt[:banner_login]
 		
 	
 	end
 	
-	
-	
-	
-	
+	if options.type == "timos"
+		puts "Tableau config: #{eqt[:conf].size}"
+		eqt=TimOs::Get.rancid(eqt)
+		puts "Tableau config: #{eqt[:conf].size}"
+		puts "Tableau rancid: #{eqt[:rancid].size}"
+		eqt=TimOs::Get.section(eqt)
+		puts eqt.keys
+		puts "Tableau config: #{eqt[:conf].size}"
+		puts "Tableau SYS: #{eqt[:system].size}"
+		eqt=TimOs::Get.banners(eqt)
+		puts "Tableau SYS: #{eqt[:system].size}"
+		puts eqt[:banner_exec]
+	end
 	
 	
 
