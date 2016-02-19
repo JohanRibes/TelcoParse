@@ -129,7 +129,7 @@ if file.nil?
 	
 	end
 	
-	
+	 
 	if options.type == "seos"
 		eqt=Seos::Get.rancid(eqt)
 		#puts "Tableau config: #{eqt[:conf].size}"
