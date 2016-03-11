@@ -90,7 +90,7 @@ if file.nil?
 		puts "Tableau config: #{eqt[:conf].size}"
 		
 		
-		#puts eqt[:conf]
+		
 		eqt=Ios::Get.section(eqt)
 		#puts eqt.keys
 		#puts "Tableau config: #{eqt[:conf].size}"
@@ -99,10 +99,12 @@ if file.nil?
 		
 		#puts "Tableau config: #{eqt[:conf].size}"
 		eqt=Ios::Get.banners(eqt)
-		#puts eqt[:banner_exec]
-		#puts eqt[:banner_motd]
+		#puts eqt[:conf]
+		puts eqt[:banner_exec]
+		puts eqt[:banner_motd]
+		puts eqt[:banner_login]
 		#puts eqt[:"interface GigabitEthernet0/1"]
-		puts "Line: #{eqt[:"line con 0"]}"	
+		#puts "INT: #{eqt[:"interface GigabitEthernet0/1"]}"	
 		
 		puts C7Decrypt::Type7.decrypt("040202120E2D584B05")
 			
@@ -121,11 +123,18 @@ if file.nil?
 		#puts "Tableau config: #{eqt[:conf].size}"
 		#puts "Tableau rancid: #{eqt[:rancid].size}"
 		puts "Tableau config: #{eqt[:conf].size}"
+		eqt=Vrp::Get.banners(eqt)
+		
+	
+		#puts "Tableau config: #{eqt[:conf].size}"
+		#puts eqt[:"G2R      : 693348"]
+		#puts eqt[:banner_login]
 		eqt=Vrp::Get.section(eqt)
-		puts "Tableau config: #{eqt[:conf].size}"
-		#puts eqt[:"interface GigabitEthernet1/0/0"]
+		puts eqt.keys
+		
 	
 	
+
 	
 	end
 	
@@ -146,7 +155,7 @@ if file.nil?
 		#puts "Context L2TP: #{eqt[:"rancid"]}"
 		eqt=Seos::Get.banners(eqt)
 		puts "Tableau config: #{eqt[:conf].size}"
-		
+		puts eqt.keys
 		puts eqt[:banner_exec]
 		puts eqt[:banner_login]
 		

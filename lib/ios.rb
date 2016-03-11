@@ -58,7 +58,7 @@ module Ios
 								@j+=1
 						end		
 						if @eqt[:conf][@j].split(@a)[0][0..1] != @a[1..2] 
-							@eqt[:login] << @eqt[:conf][@j].split(@a)[0].delete("\n") 
+							@eqt[:banner_motd] << @eqt[:conf][@j].split(@a)[0].delete("\n") 
 						end
 						@eqt[:conf][i..@j-1]=nil
 					
@@ -72,7 +72,7 @@ module Ios
 								@j+=1
 						end		
 						if @eqt[:conf][@j].split(@a)[0][0..1] != @a[1..2] 
-							@eqt[:login] << @eqt[:conf][@j].split(@a)[0].delete("\n") 
+							@eqt[:banner_login] << @eqt[:conf][@j].split(@a)[0].delete("\n") 
 						end
 						@eqt[:conf][i..@j-1]=nil
 						
@@ -86,7 +86,7 @@ module Ios
 								@j+=1
 						end		
 						if @eqt[:conf][@j].split(@a)[0][0..1] != @a[1..2] 
-							@eqt[:login] << @eqt[:conf][@j].split(@a)[0].delete("\n") 
+							@eqt[:banner_exec] << @eqt[:conf][@j].split(@a)[0].delete("\n") 
 						end
 						@eqt[:conf][i..@j-1]=nil
 					
