@@ -3,8 +3,7 @@
 # Lib VRP for Huawei eqt															 #
 # ####################################################################################
 # ####################################################################################
-#### Les headers doivent être récupérés avant les sections !!!
-#### Et de plus, il faut prévoir le cas ou tout le banner est sur la meme ligne..
+
  
 
 
