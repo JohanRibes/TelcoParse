@@ -68,7 +68,7 @@ module Seos
 						
 						when /exec/
 							@j=i+1
-							puts "Banner EXEC #{i}: #{v.split(" ")[2]}"
+							#puts "Banner EXEC #{i}: #{v.split(" ")[2]}"
 							@a="#{Regexp.escape(v.split(" ")[2][0..1])}"
 							@eqt[:banner_exec] = []
 							while @eqt[:conf][@j] !~ /#{@a}/
@@ -82,7 +82,7 @@ module Seos
 						
 						when /login/
 							@j=i+1
-							puts "Banner LOGIN #{i}: #{v.split(" ")[2]}"
+							#puts "Banner LOGIN #{i}: #{v.split(" ")[2]}"
 							@a="#{Regexp.escape(v.split(" ")[2][0..1])}"
 							@eqt[:banner_login] = []
 							while @eqt[:conf][@j] !~ /#{@a}/
@@ -99,6 +99,33 @@ module Seos
 			@eqt[:conf].compact!
 			return @eqt			
 			end		
+	
+		def self.hostname(eqt)
+			@eqt=eqt
+			@eqt[:conf].each_with_index{ |v, i|
+				if v=~ /^[\s|]system hostname/
+					@eqt[:hostname]=[]
+					@eqt[:hostname] << v.split(" ")[2]
+					@eqt[:conf][i]=nil
+				end
+			}
+		@eqt[:conf].compact!
+		return @eqt
+		end
+		
+		def self.domain_name(eqt)
+			@eqt=eqt
+			@eqt[:"context local"].each_with_index{ |v, i|
+				if v=~ /^[\s|]ip domain-name/
+					@eqt[:"domain-name"]=[]
+					@eqt[:"domain-name"] << v.split(" ")[2]
+					@eqt[:conf][i]=nil
+				end
+			}
+		@eqt[:conf].compact!
+		return @eqt
+		end
+	
 	
 	end
 end

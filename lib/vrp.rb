@@ -112,5 +112,32 @@ module Vrp
 		return @eqt			
 		end	
 		
+		
+		def self.hostname(eqt)
+			@eqt=eqt
+			@eqt[:conf].each_with_index{ |v, i|
+				if v=~ /^\ssysname/
+					@eqt[:hostname]=[]
+					@eqt[:hostname] << v.split(" ")[1]
+					@eqt[:conf][i]=nil
+				end
+			}
+		@eqt[:conf].compact!
+		return @eqt
+		end
+		
+		def self.domain_name(eqt)
+			@eqt=eqt
+			@eqt[:conf].each_with_index{ |v, i|
+				if v=~ /^\sdns domain/
+					@eqt[:"domain-name"]=[]
+					@eqt[:"domain-name"] << v.split(" ")[2]
+					@eqt[:conf][i]=nil
+				end
+			}
+		@eqt[:conf].compact!
+		return @eqt
+		end
+		
 	end
 end

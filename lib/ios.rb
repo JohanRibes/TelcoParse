@@ -4,6 +4,8 @@
 # ####################################################################################
 # ####################################################################################
 
+# Refaire l'extract des bannières en plus propre (comme sur VRP).
+
 module Ios
 	module Get
   	 			
@@ -98,6 +100,54 @@ module Ios
 		@eqt[:conf].compact!
 		return @eqt			
 		end	
+		
+		
+		def self.hostname(eqt)
+			@eqt=eqt
+			@eqt[:conf].each_with_index{ |v, i|
+				if v=~ /^hostname/
+					@eqt[:hostname]=[]
+					@eqt[:hostname] << v.split(" ")[1]
+					@eqt[:conf][i]=nil
+				end
+			}
+		@eqt[:conf].compact!
+		return @eqt
+		end
+		
+		def self.domain_name(eqt)
+			@eqt=eqt
+			@eqt[:conf].each_with_index{ |v, i|
+				if v=~ /^ip domain-name/
+					@eqt[:"domain-name"]=[]
+					@eqt[:"domain-name"] << v.split(" ")[2]
+					@eqt[:conf][i]=nil
+				end
+			}
+		@eqt[:conf].compact!
+		return @eqt
+		end
+		
+		
+		### FONCTION d'affichage des interfaces et desc 
+		def self.interfaces_desc(eqt)
+			@eqt=eqt
+			@eqt[:"interfaces-desc"]=[]
+			@eqt.each_key {|key| 
+				if key=~/^interface/ 
+					@if=key.to_s.split("interface ")[1]
+					@eqt[key].each_with_index{ |v|
+						if v=~/^\sdescription\s/ then @desc=v.split("description ")[1] else nil end
+					}
+					@eqt[:"interfaces-desc"]<< [ @if, @desc ].join('+')
+				end
+			}
+		@eqt[:"interfaces-desc"].pop
+		return @eqt
+		end
+		
+		
+		
 		
 	end
 end

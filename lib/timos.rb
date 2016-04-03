@@ -82,6 +82,22 @@ module TimOs
 		@eqt[:system].compact!
 		return @eqt			
 		end	
+		
+		
+		def self.hostname(eqt) # No domain information ??
+			@eqt=eqt
+			@eqt[:system].each_with_index{ |v, i|
+				#puts v.strip!
+				@vbis=v.strip!
+				if @vbis =~ /^name/
+					@eqt[:hostname]=[]
+					@eqt[:hostname] << @vbis.split(" ")[1]
+					@eqt[:system][i]=nil
+				end
+			}
+		@eqt[:system].compact!
+		return @eqt
+		end
 	
 	
 	

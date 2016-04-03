@@ -55,10 +55,7 @@ if file.nil?
 	else
 		# ..:: MOTD ::..
 		system 'clear'
-		puts "**************************************************************"
-		puts "Simple TelcoParser."
-		puts "**************************************************************"
-		puts "I'm Going to parse #{file} as an  \"#{options.type.downcase}\" structure."
+		
 	
 	
 	eqt={}	
@@ -73,7 +70,7 @@ if file.nil?
 	end
 
 	eqt= import(file) 
-	puts "Tableau config: #{eqt[:conf].size}"
+	#puts "Tableau config: #{eqt[:conf].size}"
 	#####################################################################
 	#####################################################################
 	
@@ -83,101 +80,69 @@ if file.nil?
 
 
 	if options.type == "ios"
-	
+		
 		eqt=Ios::Get.rancid(eqt)
-		
-		puts "Tableau rancid: #{eqt[:rancid].size}"
-		puts "Tableau config: #{eqt[:conf].size}"
-		
-		
+		@conf_size=eqt[:conf].size
+		@rancid_size=eqt[:rancid].size
 		
 		eqt=Ios::Get.section(eqt)
-		#puts eqt.keys
-		#puts "Tableau config: #{eqt[:conf].size}"
-
-		
-		
-		#puts "Tableau config: #{eqt[:conf].size}"
 		eqt=Ios::Get.banners(eqt)
-		#puts eqt[:conf]
-		puts eqt[:banner_exec]
-		puts eqt[:banner_motd]
-		puts eqt[:banner_login]
-		#puts eqt[:"interface GigabitEthernet0/1"]
-		#puts "INT: #{eqt[:"interface GigabitEthernet0/1"]}"	
+		eqt=Ios::Get.hostname(eqt)
+		eqt=Ios::Get.domain_name(eqt)
 		
-		puts C7Decrypt::Type7.decrypt("040202120E2D584B05")
-			
+		#puts C7Decrypt::Type7.decrypt("040202120E2D584B05")
+		eqt=Ios::Get.interfaces_desc(eqt)
+		puts eqt.keys
+		
+		#puts eqt[:"interfaces-desc"]
 	end
 	
 	
 	
 	
 	if options.type == "vrp"
-	# Les banners sont dans le :rancid
 		eqt=Vrp::Get.rancid(eqt)
-		puts "Tableau config: #{eqt[:conf].size}"
-		puts "Tableau rancid: #{eqt[:rancid].size}"
-		
-		#puts eqt[:rancid]
-		#puts "Tableau config: #{eqt[:conf].size}"
-		#puts "Tableau rancid: #{eqt[:rancid].size}"
-		puts "Tableau config: #{eqt[:conf].size}"
 		eqt=Vrp::Get.banners(eqt)
-		
-	
-		#puts "Tableau config: #{eqt[:conf].size}"
-		#puts eqt[:"G2R      : 693348"]
-		#puts eqt[:banner_login]
 		eqt=Vrp::Get.section(eqt)
-		puts eqt.keys
-		
-	
-	
-
-	
+		eqt=Vrp::Get.hostname(eqt)
+		eqt=Vrp::Get.domain_name(eqt)
 	end
 	
 	 
 	if options.type == "seos"
 		eqt=Seos::Get.rancid(eqt)
-		#puts "Tableau config: #{eqt[:conf].size}"
-		#puts "Tableau rancid: #{eqt[:rancid].size}"
 		eqt=Seos::Get.section(eqt)
-		#puts eqt.keys
-		#puts eqt[:"port ethernet 14/5"]
-		#puts "Tableau config: #{eqt[:conf].size}"
 		eqt=Seos::Get.context(eqt)
-		#puts eqt.keys
-		puts "Tableau config: #{eqt[:conf].size}"
-		#puts eqt[:"context local"]
-		#puts "Context local: #{eqt[:"context local"].size}"
-		#puts "Context L2TP: #{eqt[:"rancid"]}"
 		eqt=Seos::Get.banners(eqt)
-		puts "Tableau config: #{eqt[:conf].size}"
-		puts eqt.keys
-		puts eqt[:banner_exec]
-		puts eqt[:banner_login]
+		eqt=Seos::Get.hostname(eqt)
+		eqt=Seos::Get.domain_name(eqt)
 		
-	
 	end
 	
 	if options.type == "timos"
-		puts "Tableau config: #{eqt[:conf].size}"
+		
 		eqt=TimOs::Get.rancid(eqt)
-		puts "Tableau config: #{eqt[:conf].size}"
-		puts "Tableau rancid: #{eqt[:rancid].size}"
 		eqt=TimOs::Get.section(eqt)
-		puts eqt.keys
-		puts "Tableau config: #{eqt[:conf].size}"
-		puts "Tableau SYS: #{eqt[:system].size}"
 		eqt=TimOs::Get.banners(eqt)
-		puts "Tableau SYS: #{eqt[:system].size}"
-		puts eqt[:banner_exec]
+		eqt=TimOs::Get.hostname(eqt)
+		
 	end
 	
 	
+	
+# Faire le hostname et domaine name surSEOS ! et faire la boucle sur le domaine qui nexiste pas forcement.
+eqt[:hostname]!=nil ? host=eqt[:hostname][0] : host="JohnDoe" 
+eqt[:"domain-name"]!=nil ? dom=eqt[:'domain-name'][0] : dom="NoConfiguredDomain" 
 
+puts "**************************************************".center(100)
+puts "**************************************************".center(100)
+puts  "**    #{host}.#{dom}    **".center(100)
+puts "**************************************************".center(100)
+puts "**************************************************".center(100)
+
+puts "\n\n\n\n\n\n"
+		
+puts eqt[:"interfaces-desc"]
 
 
 
