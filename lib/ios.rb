@@ -129,7 +129,6 @@ module Ios
 		end
 		
 		
-		### FONCTION d'affichage des interfaces et desc 
 		def self.interfaces_desc(eqt)
 			@eqt=eqt
 			@eqt[:"interfaces-desc"]=[]

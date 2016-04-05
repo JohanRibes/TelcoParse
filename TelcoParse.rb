@@ -92,8 +92,6 @@ if file.nil?
 		
 		#puts C7Decrypt::Type7.decrypt("040202120E2D584B05")
 		eqt=Ios::Get.interfaces_desc(eqt)
-		puts eqt.keys
-		
 		#puts eqt[:"interfaces-desc"]
 	end
 	
@@ -106,6 +104,8 @@ if file.nil?
 		eqt=Vrp::Get.section(eqt)
 		eqt=Vrp::Get.hostname(eqt)
 		eqt=Vrp::Get.domain_name(eqt)
+		eqt=Vrp::Get.interfaces_desc(eqt)
+		
 	end
 	
 	 
@@ -130,7 +130,6 @@ if file.nil?
 	
 	
 	
-# Faire le hostname et domaine name surSEOS ! et faire la boucle sur le domaine qui nexiste pas forcement.
 eqt[:hostname]!=nil ? host=eqt[:hostname][0] : host="JohnDoe" 
 eqt[:"domain-name"]!=nil ? dom=eqt[:'domain-name'][0] : dom="NoConfiguredDomain" 
 
@@ -141,8 +140,14 @@ puts "**************************************************".center(100)
 puts "**************************************************".center(100)
 
 puts "\n\n\n\n\n\n"
-		
-puts eqt[:"interfaces-desc"]
-
+ 
+ 
+puts eqt[:"port ethernet 2/1"]
+ 
+if eqt[:"interfaces-desc"]
+	eqt[:"interfaces-desc"].each{ |v|
+		puts v 
+	}
+end
 
 

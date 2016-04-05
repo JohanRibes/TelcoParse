@@ -139,5 +139,22 @@ module Vrp
 		return @eqt
 		end
 		
+		
+		def self.interfaces_desc(eqt)
+			@eqt=eqt
+			@eqt[:"interfaces-desc"]=[]
+			@eqt.each_key {|key| 
+				if key=~/^interface/ 
+					@if=key.to_s.split("interface ")[1]
+					@eqt[key].each_with_index{ |v|
+						if v=~/^\sdescription\s/ then @desc=v.split("description ")[1] else nil end
+					}
+					@eqt[:"interfaces-desc"]<< [ @if, @desc ].join('+')
+				end
+			}
+		@eqt[:"interfaces-desc"].pop
+		return @eqt
+		end
+		
 	end
 end
