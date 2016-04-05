@@ -90,9 +90,9 @@ if file.nil?
 		eqt=Ios::Get.hostname(eqt)
 		eqt=Ios::Get.domain_name(eqt)
 		
-		#puts C7Decrypt::Type7.decrypt("040202120E2D584B05")
+		##puts C7Decrypt::Type7.decrypt("040202120E2D584B05")
 		eqt=Ios::Get.interfaces_desc(eqt)
-		#puts eqt[:"interfaces-desc"]
+		##puts eqt[:"interfaces-desc"]
 	end
 	
 	
