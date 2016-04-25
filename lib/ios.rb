@@ -138,7 +138,7 @@ module Ios
 					@eqt[key].each_with_index{ |v|
 						if v=~/^\sdescription\s/ then @desc=v.split("description ")[1] else nil end
 					}
-					@eqt[:"interfaces-desc"]<< [ @if, @desc ].join('+')
+					@eqt[:"interfaces-desc"]<< [ @if, @desc ].join('~')
 				end
 			}
 		@eqt[:"interfaces-desc"].pop

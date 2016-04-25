@@ -14,6 +14,7 @@
 $:.unshift File.join(File.dirname(__FILE__), '..', 'lib') # Ajoute ./lib dans le PATH ruby
 require 'optparse'
 require 'ostruct'
+require_relative 'lib/parse.rb'
 require_relative 'lib/ios.rb'
 require_relative 'lib/vrp.rb'
 require_relative 'lib/seos.rb'
@@ -70,7 +71,7 @@ if file.nil?
 	end
 
 	eqt= import(file) 
-	#puts "Tableau config: #{eqt[:conf].size}"
+	size=eqt[:conf].size
 	#####################################################################
 	#####################################################################
 	
@@ -133,21 +134,21 @@ if file.nil?
 eqt[:hostname]!=nil ? host=eqt[:hostname][0] : host="JohnDoe" 
 eqt[:"domain-name"]!=nil ? dom=eqt[:'domain-name'][0] : dom="NoConfiguredDomain" 
 
-puts "**************************************************".center(100)
-puts "**************************************************".center(100)
-puts  "**    #{host}.#{dom}    **".center(100)
-puts "**************************************************".center(100)
-puts "**************************************************".center(100)
-
+puts "**************************************************".center(150)
+puts "**************************************************".center(150)
+puts  "**    #{host}.#{dom}    **".center(150)
+puts "**************************************************".center(150)
+puts "**************************************************".center(150)
+puts "Configuration has #{size} lines.".center(150)
 puts "\n\n\n\n\n\n"
  
  
-puts eqt[:"port ethernet 2/1"]
+
+
+
  
 if eqt[:"interfaces-desc"]
-	eqt[:"interfaces-desc"].each{ |v|
-		puts v 
-	}
+	Parse::Print.interface_print(eqt[:"interfaces-desc" ])
 end
 
 
