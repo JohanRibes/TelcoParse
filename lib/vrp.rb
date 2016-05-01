@@ -140,8 +140,6 @@ module Vrp
 		end
 		
 		
-	
-		
 		def self.interfaces_desc(eqt)
 			@eqt=eqt
 			@eqt[:"interfaces-desc"]=[]
@@ -150,8 +148,10 @@ module Vrp
 					@if=key.to_s.split("interface ")[1]
 					@eqt[key].each_with_index{ |v|
 						if v=~/^\sdescription\s/ then @desc=v.split("description ")[1] else nil end
+						v=~/^\s*shutdown/ ?  @shut=true : (@shut==true ? nil : @shut=false) 
 					}
-					@eqt[:"interfaces-desc"]<< [ @if, @desc ].join('~')
+					@eqt[:"interfaces-desc"]<< [ @if, @desc, @shut ].join('~')
+					@shut=nil
 				end
 			}
 		@eqt[:"interfaces-desc"].pop

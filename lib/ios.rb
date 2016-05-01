@@ -133,12 +133,14 @@ module Ios
 			@eqt=eqt
 			@eqt[:"interfaces-desc"]=[]
 			@eqt.each_key {|key| 
+				@shut=false
 				if key=~/^interface/ 
 					@if=key.to_s.split("interface ")[1]
 					@eqt[key].each_with_index{ |v|
-						if v=~/^\sdescription\s/ then @desc=v.split("description ")[1] else nil end
+						v=~/^\s*description\s/ ? @desc=v.split("description ")[1] : nil 
+						v=~/^\s*shutdown/ ?  @shut=true : (@shut==true ? nil : @shut=false) 
 					}
-					@eqt[:"interfaces-desc"]<< [ @if, @desc ].join('~')
+					@eqt[:"interfaces-desc"]<< [ @if, @desc, @shut ].join('~')
 				end
 			}
 		@eqt[:"interfaces-desc"].pop

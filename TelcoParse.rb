@@ -93,7 +93,6 @@ if file.nil?
 		
 		##puts C7Decrypt::Type7.decrypt("040202120E2D584B05")
 		eqt=Ios::Get.interfaces_desc(eqt)
-		##puts eqt[:"interfaces-desc"]
 	end
 	
 	
@@ -106,6 +105,8 @@ if file.nil?
 		eqt=Vrp::Get.hostname(eqt)
 		eqt=Vrp::Get.domain_name(eqt)
 		eqt=Vrp::Get.interfaces_desc(eqt)
+		puts eqt[:"interface Bridge-Aggregation1"]
+		
 		
 	end
 	
@@ -117,7 +118,7 @@ if file.nil?
 		eqt=Seos::Get.banners(eqt)
 		eqt=Seos::Get.hostname(eqt)
 		eqt=Seos::Get.domain_name(eqt)
-		
+		eqt=Seos::Get.interfaces_desc(eqt)
 	end
 	
 	if options.type == "timos"
@@ -126,7 +127,7 @@ if file.nil?
 		eqt=TimOs::Get.section(eqt)
 		eqt=TimOs::Get.banners(eqt)
 		eqt=TimOs::Get.hostname(eqt)
-		
+		eqt=TimOs::Get.interfaces_desc(eqt)
 	end
 	
 	

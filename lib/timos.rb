@@ -99,6 +99,31 @@ module TimOs
 		return @eqt
 		end
 	
+		def self.interfaces_desc(eqt)
+			@eqt=eqt
+			@eqt[:"interfaces-desc"]=[]
+			@eqt.each_key {|key| 
+				if key=~/^port/ 
+					@if="port "+key.to_s.split("port ")[1]
+					@eqt[key].each_with_index{ |v|
+						if v=~/^\s*description\s/ then @desc=v.split("description ")[1] else nil end
+						v=~/^\s*shutdown/ ?  @shut=true : (v=~/^\s*no shutdown/ ? @shut=false : nil)
+					}
+					@eqt[:"interfaces-desc"]<< [ @if, @desc, @shut ].join('~')
+				end
+				
+				if key=~/^lag/ 
+					@if="lag "+key.to_s.split("lag ")[1]
+					@eqt[key].each_with_index{ |v|
+						v=~/^\s*description\s/ ? @desc=v.split("description ")[1] : nil 
+						v=~/^\s*shutdown/ ?  @shut=true : (v=~/^\s*no shutdown/ ? @shut=false : nil)
+					}
+					@eqt[:"interfaces-desc"]<< [ @if, @desc, @shut ].join('~')
+				end
+				@shut=nil
+			}
+		return @eqt
+		end
 	
 	
 	end

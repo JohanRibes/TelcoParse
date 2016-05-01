@@ -125,6 +125,23 @@ module Seos
 		@eqt[:conf].compact!
 		return @eqt
 		end
+		
+		def self.interfaces_desc(eqt)
+			@eqt=eqt
+			@eqt[:"interfaces-desc"]=[]
+			@eqt.each_key {|key| 
+				if key=~/^port/ 
+					@if=key.to_s.split("port ")[1]
+					@eqt[key].each_with_index{ |v|
+						v=~/^\sdescription\s/ ? @desc=v.split("description ")[1] : nil 
+						v=~/^\s*shutdown/ ?  @shut=true : (@shut==true ? nil : @shut=false) 
+
+					}
+					@eqt[:"interfaces-desc"]<< [ @if, @desc, @shut ].join('~')
+				end
+			}
+		return @eqt
+		end
 	
 	
 	end
