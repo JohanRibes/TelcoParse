@@ -55,15 +55,19 @@ module Vrp
 				#puts "#{i}: #{v}"
 					case v.split(" ")[1]
 					
-					when /shell/
+					when /shell/ ##### REFAIRE UN IF POUR ELS CAS OU BANNER EN TXT
+						if v !~ /^.*header shell file / 
 						@eqt[:conf][i]=nil
 						@j=i+1
+						@eqt[:banner_exec]=[]
 						#puts "###Banner EXEC #{i}: #{v.split(" ")[2]}"
 						@a="#{Regexp.escape(v.split(" ")[2][0..1])}"
-						#puts "###Delimiteur :"+ @a
-						if  v.count(@a)==2 # if banner on one line
-							@eqt[:banner_exec] << v.split(@a)[1].strip!
-							@eqt[:conf][@j]=nil
+						#puts "###Delimiteur : "+ @a
+						if  v.count(@a)==2  # if banner on one line
+								
+								@eqt[:banner_exec] << v.split(@a)[1].strip!
+								@eqt[:conf][@j]=nil
+							
 						else
 							@eqt[:banner_exec] = []
 							while @eqt[:conf][@j] !~ /#{@a}$/
@@ -76,18 +80,21 @@ module Vrp
 								@eqt[:banner_exec] << @eqt[:conf][@j].delete("\n").split(@a)[0]
 								@eqt[:conf][@j]=nil
 							end
-													
+							end						
 						end
 					
 					when /login/
+					if v !~ /^.*header login file /
 					@eqt[:conf][i]=nil
 						@j=i+1
 						#puts "###Banner LOGIN #{i}: #{v.split(" ")[2]}"
 						@a="#{Regexp.escape(v.split(" ")[2][0..1])}"
 						#puts "###Delimiteur :"+ @a
 						if  v.count(@a)==2
-							@eqt[:banner_login] << v.split(@a)[1].strip!
-							@eqt[:conf][@j]=nil
+							
+								@eqt[:banner_login] << v.split(@a)[1].strip!
+								@eqt[:conf][@j]=nil
+							
 						else
 							@eqt[:banner_login] = []
 							while @eqt[:conf][@j] !~ /#{@a}$/
@@ -103,7 +110,7 @@ module Vrp
 													
 						end	
 					
-					
+					end
 					end
 					
 				end
@@ -152,6 +159,7 @@ module Vrp
 					}
 					@eqt[:"interfaces-desc"]<< [ @if, @desc, @shut ].join('~')
 					@shut=nil
+					@desc=nil
 				end
 			}
 		@eqt[:"interfaces-desc"].pop

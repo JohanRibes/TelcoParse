@@ -6,8 +6,7 @@
 # ####################################################################################
 # ####################################################################################
 # ####################################################################################
-#require 'optparse'		Will be used for CLI interface later
-#require 'ostruct'		Will be used for hash  constrution later.	
+
 
 
 
@@ -91,8 +90,9 @@ if file.nil?
 		eqt=Ios::Get.hostname(eqt)
 		eqt=Ios::Get.domain_name(eqt)
 		
-		##puts C7Decrypt::Type7.decrypt("040202120E2D584B05")
+		#puts C7Decrypt::Type7.decrypt("040202120E2D584B05")
 		eqt=Ios::Get.interfaces_desc(eqt)
+		
 	end
 	
 	
@@ -105,9 +105,6 @@ if file.nil?
 		eqt=Vrp::Get.hostname(eqt)
 		eqt=Vrp::Get.domain_name(eqt)
 		eqt=Vrp::Get.interfaces_desc(eqt)
-		puts eqt[:"interface Bridge-Aggregation1"]
-		
-		
 	end
 	
 	 
@@ -130,10 +127,35 @@ if file.nil?
 		eqt=TimOs::Get.interfaces_desc(eqt)
 	end
 	
+### Color modes and functions
+class String
+	def black;          "\e[30m#{self}\e[0m" end
+	def red;            "\e[31m#{self}\e[0m" end
+	def green;          "\e[32m#{self}\e[0m" end
+	def brown;          "\e[33m#{self}\e[0m" end
+	def blue;           "\e[34m#{self}\e[0m" end
+	def magenta;        "\e[35m#{self}\e[0m" end
+	def cyan;           "\e[36m#{self}\e[0m" end
+	def gray;           "\e[37m#{self}\e[0m" end
+
+	def bg_black;       "\e[40m#{self}\e[0m" end
+	def bg_red;         "\e[41m#{self}\e[0m" end
+	def bg_green;       "\e[42m#{self}\e[0m" end
+	def bg_brown;       "\e[43m#{self}\e[0m" end
+	def bg_blue;        "\e[44m#{self}\e[0m" end
+	def bg_magenta;     "\e[45m#{self}\e[0m" end
+	def bg_cyan;        "\e[46m#{self}\e[0m" end
+	def bg_gray;        "\e[47m#{self}\e[0m" end
+
+	def bold;           "\e[1m#{self}\e[22m" end
+	def italic;         "\e[3m#{self}\e[23m" end
+	def underline;      "\e[4m#{self}\e[24m" end
+	def blink;          "\e[5m#{self}\e[25m" end
+	def reverse_color;  "\e[7m#{self}\e[27m" end
+end
 	
-	
-eqt[:hostname]!=nil ? host=eqt[:hostname][0] : host="JohnDoe" 
-eqt[:"domain-name"]!=nil ? dom=eqt[:'domain-name'][0] : dom="NoConfiguredDomain" 
+eqt[:hostname] ? host=eqt[:hostname][0] : host="JohnDoe" 
+eqt[:"domain-name"] ? dom=eqt[:'domain-name'][0] : dom="NoConfiguredDomain" 
 
 puts "**************************************************".center(150)
 puts "**************************************************".center(150)
@@ -141,15 +163,18 @@ puts  "**    #{host}.#{dom}    **".center(150)
 puts "**************************************************".center(150)
 puts "**************************************************".center(150)
 puts "Configuration has #{size} lines.".center(150)
-puts "\n\n\n\n\n\n"
+puts "\n\n"
  
  
 
-
-
- 
-if eqt[:"interfaces-desc"]
-	Parse::Print.interface_print(eqt[:"interfaces-desc" ])
+if eqt[:"banner_exec"] 
+	eqt[:"banner_exec"].each {|v|
+		v=~ /.*:.*/ ? (puts v) : nil		
+	}
+puts "\n\n"
 end
+	
+eqt[:"interfaces-desc"] ? Parse::Print.interface_print(eqt[:"interfaces-desc" ]) : nil
+
 
 

@@ -141,6 +141,8 @@ module Ios
 						v=~/^\s*shutdown/ ?  @shut=true : (@shut==true ? nil : @shut=false) 
 					}
 					@eqt[:"interfaces-desc"]<< [ @if, @desc, @shut ].join('~')
+					@shut=nil
+					@desc=nil
 				end
 			}
 		@eqt[:"interfaces-desc"].pop

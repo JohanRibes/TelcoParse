@@ -119,6 +119,8 @@ module TimOs
 						v=~/^\s*shutdown/ ?  @shut=true : (v=~/^\s*no shutdown/ ? @shut=false : nil)
 					}
 					@eqt[:"interfaces-desc"]<< [ @if, @desc, @shut ].join('~')
+					@shut=nil
+					@desc=nil
 				end
 				@shut=nil
 			}

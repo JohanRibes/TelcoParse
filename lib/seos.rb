@@ -138,6 +138,8 @@ module Seos
 
 					}
 					@eqt[:"interfaces-desc"]<< [ @if, @desc, @shut ].join('~')
+					@shut=nil
+					@desc=nil
 				end
 			}
 		return @eqt
