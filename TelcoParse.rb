@@ -119,7 +119,6 @@ if file.nil?
 	end
 	
 	if options.type == "timos"
-		
 		eqt=TimOs::Get.rancid(eqt)
 		eqt=TimOs::Get.section(eqt)
 		eqt=TimOs::Get.banners(eqt)

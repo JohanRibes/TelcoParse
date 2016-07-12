@@ -23,12 +23,12 @@ module Parse
 
 	module Detect
 		def self.desc_mod(desc)
-			customer=["CUST"] # Passer ce tableau dans la partie corporate avant le commit. 
+			customer=["CUST"]
 			customer_count=false
 			customer.each {|w|
 				if desc =~ /.*#{w}.*/ 
-					 desc=desc.split(w)[0]+w.green+desc.split(w)[1]
-					 customer_count=true
+					desc=(desc.split(w)[0]!=nil ? desc.split(w)[0]:"")+w.green+(desc.split(w)[1]!=nil ? desc.split(w)[1]:"") 
+					customer_count=true
 				end
 			}
 			return desc, customer_count
