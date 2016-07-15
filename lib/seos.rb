@@ -75,7 +75,7 @@ module Seos
 									@eqt[:banner_exec] << @eqt[:conf][@j].delete("\n")
 									@j+=1
 							end		
-							if @eqt[:conf][@j].split(@a)[0][0..1] != @a[1..2] 
+							if @eqt[:conf][@j].split(@a)[0] != nil && @eqt[:conf][@j].split(@a)[0][0..1] != @a[1..2]
 								@eqt[:exec] << @eqt[:conf][@j].split(@a)[0].delete("\n") 
 							end
 							@eqt[:conf][i..@j-1]=nil
@@ -89,7 +89,7 @@ module Seos
 									@eqt[:banner_login] << @eqt[:conf][@j].delete("\n")
 									@j+=1
 							end		
-							if @eqt[:conf][@j].split(@a)[0][0..1] != @a[1..2] 
+							if @eqt[:conf][@j].split(@a)[0] != nil && @eqt[:conf][@j].split(@a)[0][0..1] != @a[1..2] 
 								@eqt[:login] << @eqt[:conf][@j].split(@a)[0].delete("\n") 
 							end
 							@eqt[:conf][i..@j-1]=nil
