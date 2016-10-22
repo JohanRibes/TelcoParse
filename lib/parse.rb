@@ -23,7 +23,7 @@ module Parse
 
 	module Detect
 		def self.desc_mod(desc)
-			customer=["CUST"]
+			customer=["customer","cpe"]
 			customer_count=false
 			customer.each {|w|
 				if desc =~ /.*#{w}.*/ 

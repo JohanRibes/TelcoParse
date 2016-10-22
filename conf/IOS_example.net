@@ -1,0 +1,294 @@
+!RANCID-CONTENT-TYPE: cisco
+!
+!Chassis type: WS-C3550-12G - a 3550 switch
+!CPU: PowerPC
+!
+!Memory: main 65526K/8192K
+!Serial Number: CAT098NSD3
+!Model revision number: N0
+!Model number: WS-C3550-12G
+!
+!Processor ID: CAT0934N3SD
+!
+!Power: RPS is NOT PRESENT
+!
+!Image: Software: C3550-I5Q3L2-X, 12.5(22)EA4a, RELEASE SOFTWARE (fc1)
+!Image: Compiled: Fri 16-Sep-05 12:14 by xxxx
+!Image: flash:/c3550-i2q3l2-Nz.1221-22.E124a.bin
+!
+!
+!
+!BootFlash: Config file:          flash:/config.text
+!BootFlash: Enable Break:         no
+!BootFlash: Manual Boot:          no
+!BootFlash: HELPER path-list:     
+!BootFlash: NVRAM/Config file
+!
+!Flash: Directory of flash:/
+!Flash:     2  -rwx           0  Jan 01 1970 01:02:02 +01:00  env_vars
+!Flash:     3  -rwx         349  Jan 01 1970 01:02:02 +01:00  system_env_vars
+!Flash: 16128000 bytes total (7582720 bytes free)
+!
+!Flash: nvram: Directory of nvram:/
+!Flash: nvram:   369  -rw-       12976                    <no date>  startup-config
+!Flash: nvram:   370  ----          77                    <no date>  private-config
+!Flash: nvram:     1  -rw-         474                    <no date>  ifIndex-table
+!Flash: nvram: 393216 bytes total (379087 bytes free)
+!
+!VTP: VTP Version                     : 2
+!VTP: Configuration Revision          : 0
+!VTP: Maximum VLANs supported locally : 1005
+!VTP: Number of existing VLANs        : 28
+!VTP: VTP Pruning Mode                : Disabled
+!VTP: VTP V2 Mode                     : Disabled
+!VTP: VTP Traps Generation            : Disabled
+!VTP: MD5 digest                      : 0x10 0xCC 0x9D 0x75 0x93 0x45 0x51 0xFB 
+!
+!
+config-register 0x10F
+!
+version 12.1
+no service pad
+service timestamps debug datetime localtime
+service timestamps log datetime localtime
+service password-encryption
+!
+hostname MYROUTER 
+!
+aaa new-model
+aaa accounting exec default start-stop group tacacs+
+aaa accounting commands 1 default start-stop group tacacs+
+aaa accounting commands 15 default start-stop group tacacs+
+enable secret 5 $1$7ekx$FEEEZEAAAAAZZZZZZPG/
+!
+username test password 7 0233333333384B05
+clock timezone FRANCE 1
+clock summer-time FRANCE recurring last Sun Mar 3:00 last Sun Oct 3:00
+errdisable recovery cause udld
+errdisable recovery cause link-flap
+ip subnet-zero
+!
+no ip domain-lookup
+ip domain-name groland.net
+ip name-server 10.0.0.1
+ip name-server 10.0.0.2
+vtp domain ROUTEUR
+vtp mode transparent
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+spanning-tree uplinkfast
+spanning-tree vlan 46 priority 42152
+!
+vlan 2 
+!
+vlan 3
+ name custom
+!
+vlan 5
+ name native-custom
+!
+vlan 46
+ name MANAGEMENT
+!
+vlan 50 
+!
+vlan 59
+ name my-trunk
+!
+vlan 60,101 
+!
+vlan 370
+ name Housing
+!
+interface GigabitEthernet0/1
+ description to WAN
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 5
+ switchport trunk allowed vlan add 913-915,929,930,2816,2822
+ switchport mode trunk
+!
+interface GigabitEthernet0/2
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 12 
+ switchport mode trunk
+ shutdown
+ storm-control broadcast level 5.00
+ spanning-tree guard root
+!
+interface GigabitEthernet0/3
+ description To_first_cpe
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 5
+ switchport trunk allowed vlan 2,5
+ switchport mode trunk
+ load-interval 30
+ shutdown
+ storm-control broadcast level 5.00
+ spanning-tree guard root
+!
+interface GigabitEthernet0/4
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 5
+ switchport trunk allowed vlan 2,5,913-915
+ switchport mode trunk
+ shutdown
+ storm-control broadcast level 5.00
+ spanning-tree guard root
+!
+interface GigabitEthernet0/5
+ description to_radius
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 5
+ switchport trunk allowed vlan 46,929,930
+ switchport mode trunk
+ load-interval 30
+ speed nonegotiate
+ storm-control broadcast level 5.00
+ spanning-tree guard root
+!
+interface GigabitEthernet0/6
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 5
+ switchport trunk allowed vlan 46,841,842
+ switchport mode trunk
+ bandwidth 10000
+ shutdown
+ storm-control broadcast level 5.00
+ spanning-tree portfast
+ spanning-tree guard root
+!
+interface GigabitEthernet0/7
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 5
+ switchport trunk allowed vlan 46,900
+ switchport mode trunk
+ bandwidth 10000
+ shutdown
+ speed nonegotiate
+ storm-control broadcast level 5.00
+ spanning-tree portfast
+ spanning-tree guard root
+!
+interface GigabitEthernet0/8
+ description to-second_customer
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 5
+ switchport trunk allowed vlan 46,2816
+ switchport mode trunk
+ bandwidth 40000
+ speed nonegotiate
+ storm-control broadcast level 5.00
+ spanning-tree portfast
+ spanning-tree guard root
+!
+interface GigabitEthernet0/9
+ description to_tactacs
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 5
+ switchport trunk allowed vlan 46,2822
+ switchport mode trunk
+ bandwidth 40000
+ speed nonegotiate
+ storm-control broadcast level 5.00
+ spanning-tree portfast
+ spanning-tree guard root
+!
+interface GigabitEthernet0/10
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 5
+ switchport trunk allowed vlan 5,46,702
+ switchport mode trunk
+ bandwidth 10000
+ shutdown
+ speed nonegotiate
+ storm-control broadcast level 5.00
+ spanning-tree portfast
+ spanning-tree guard root
+!
+interface GigabitEthernet0/11
+ description static_bckp
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 3
+ switchport trunk allowed vlan 3,46,370-372,702
+ switchport mode trunk
+ duplex full
+ storm-control broadcast level 5.00
+!
+interface GigabitEthernet0/12
+ description to_customer_3
+ switchport access vlan 59
+ switchport mode access
+ storm-control broadcast level 5.00
+ no cdp enable
+ spanning-tree portfast
+ spanning-tree guard root
+!
+interface Vlan1
+ no ip address
+ no ip route-cache
+ no ip mroute-cache
+ shutdown
+!
+interface Vlan2
+ description best_vlan_EVER
+ ip address 10.2.2.250 255.255.255.122
+ no ip route-cache
+ no ip mroute-cache
+!
+ip default-gateway 10.2.2.251
+ip classless
+no ip http server
+!
+ip access-list standard acces_vty
+ permit 12.12.22.228
+ permit 12.9.62.2
+ permit 21.32.197.32
+!
+ip access-list extended ingress_filter
+ deny   ip host 0.0.0.0 any
+ deny   ip 10.0.0.0 0.255.255.255 any
+!
+banner exec ^C
+--------------------------------------------------------------------------
+
+                  All events are logged to a security server
+
+--------------------------------------------------------------------------
+Name     : MY_ROUTER
+STATE    : CA
+Address  : Venice Beach
+Room     : Outside!
+Type     : Cisco 3550-12G
+^C
+banner login ^C
+
+This equipment is the property of someone with good lawyers.
+^C
+banner motd ^C
+*****************************************************************************
+Unauthorised access prohibited
+*****************************************************************************
+*****************************************************************************
+^C
+!
+line con 0
+ exec-timeout 5 0
+ logging synchronous
+ transport preferred none
+line vty 0 4
+ access-class acces_vty in
+ exec-timeout 9 0
+ logging synchronous
+ transport input telnet
+ transport output telnet
+line vty 5 15
+ access-class acces_vty in
+ exec-timeout 9 0
+ logging synchronous
+!
+ntp source Vlan2
+ntp server 10.0.6.1 prefer
+ntp server 10.0.6.3
+!
+end
