@@ -56,3 +56,39 @@ Usage: TelcoParse file_to_parse [options]
 
 Supported types are `ios`, `vrp`, `seos` and `timos`.
 
+## Example
+You have one sample configuration file to play with in the `/conf` directory.
+```bash
+./TelcoParse.rb conf/IOS_example.net -t ios
+                                                  **************************************************
+                                                  **************************************************
+                                                           **    MYROUTER.groland.net    **
+                                                  **************************************************
+                                                  **************************************************
+                                                             Configuration has 294 lines.
+
+
+Name     : MY_ROUTER
+STATE    : CA
+Address  : Venice Beach
+Room     : Outside!
+Type     : Cisco 3550-12G
+
+
+14 Interfaces:
+[X] GigabitEthernet0/1                                                                                                                              to WAN
+[ ] GigabitEthernet0/2
+[ ] GigabitEthernet0/3                                                                                                                        To_first_cpe
+[ ] GigabitEthernet0/4
+[X] GigabitEthernet0/5                                                                                                                           to_radius
+[ ] GigabitEthernet0/6
+[ ] GigabitEthernet0/7
+[X] GigabitEthernet0/8                                                                                                                  to-second_customer
+[X] GigabitEthernet0/9                                                                                                                          to_tactacs
+[ ] GigabitEthernet0/10
+[X] GigabitEthernet0/11                                                                                                                        static_bckp
+[X] GigabitEthernet0/12                                                                                                                      to_customer_3
+[ ] Vlan1
+[X] Vlan2                                                                                                                                   best_vlan_EVER
+                                                                                                                                              Customers: 2
+```
