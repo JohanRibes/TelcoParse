@@ -26,19 +26,27 @@ Supported Types are `Ios`, `Vrp`, `Seos`, and `Timos`.
 ### Example
 
 ``` ruby
-# Calls
+# Library Call
 require_relative 'lib/parse.rb'
 require_relative 'lib/ios.rb'
 require_relative 'lib/vrp.rb'
 require_relative 'lib/seos.rb'
 require_relative 'lib/timos.rb'
 
-########
-MY CONF import where my file will be stored in `eqt` array.
-########
+# File import
+file=ARGV[0]
+def import(file)
+	@eqt={}
+	@eqt[:conf] = IO.readlines(file)
+	return @eqt
+end
 
+eqt= import(file)
+size=eqt[:conf].size
+
+# Some extracts
 puts Ios::Get.hostname(eqt)
-puts IOS::Get.domain_name(eqt)
+puts Ios::Get.domain_name(eqt)
 
 ```
 
@@ -98,3 +106,8 @@ Type     : Cisco 3550-12G
 The `lib/parse.rb` file contains a **Detect** module in which you can specify a certain string that can be.. detected.
 The purpose of this functionnality is to locate an interfaces that I want to care more (customers CPE in my case).
 You can change the strings to suit your needs directly in the file.
+
+### Go further
+You can see in the source that I have manually inserted `/lib/c7decrypt` when developping this tool. This is because the `gem` environment was **root-only** so it was more pratical for me. You can add this fantastic module cloning the github project `https://github.com/claudijd/c7decrypt/` or simply `gem install c7decrypt`.
+Then you just have to `C7Decrypt::Type7.decrypt(VAR)`) in your source code. 
+Many thanks to **Jonathan Claudius** for the good work!  
