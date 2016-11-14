@@ -57,7 +57,8 @@ Usage: TelcoParse file_to_parse [options]
 Supported types are `ios`, `vrp`, `seos` and `timos`.
 
 ## Example
-You have one sample configuration file to play with in the `/conf` directory.
+You have one sample configuration file to play with in the `/conf` directory. One for each type.
+
 ```bash
 ./TelcoParse.rb conf/IOS_example.net -t ios
                                                   **************************************************
@@ -92,3 +93,8 @@ Type     : Cisco 3550-12G
 [X] Vlan2                                                                                                                                   best_vlan_EVER
                                                                                                                                               Customers: 2
 ```
+
+## Cherry on the top
+The `lib/parse.rb` file contains a **Detect** module in which you can specify a certain string that can be.. detected.
+The purpose of this functionnality is to locate an interfaces that I want to care more (customers CPE in my case).
+You can change the strings to suit your needs directly in the file.
