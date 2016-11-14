@@ -18,7 +18,7 @@ require_relative 'lib/ios.rb'
 require_relative 'lib/vrp.rb'
 require_relative 'lib/seos.rb'
 require_relative 'lib/timos.rb'
-require_relative 'lib/c7decrypt.rb'
+#require_relative 'lib/c7decrypt.rb'
 
 
 options = OpenStruct.new
