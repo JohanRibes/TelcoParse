@@ -21,7 +21,7 @@ A "universal" parser script to help telco technicians to read configuration file
 6. `[Type]::Get.hostname(eqt)`extracts hostname.
 7. `[Type]::Get.interfaces_desc(eqt)` extracts interfaces names, descrptions and returns a simple 2-dimensions array (including Vlans, Bundles, etc).
 
-Supported Types are `Ios`, `Vrp, `Seos`, and `Timos`.
+Supported Types are `Ios`, `Vrp`, `Seos`, and `Timos`.
 
 ### Example
 
